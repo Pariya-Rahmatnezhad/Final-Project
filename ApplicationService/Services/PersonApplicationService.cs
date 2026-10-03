@@ -1,4 +1,5 @@
 ﻿using ApplicationService.Dtos;
+using Model.DomainModel;
 using Model.ServiceModel;
 
 namespace ApplicationService.Services
@@ -6,6 +7,10 @@ namespace ApplicationService.Services
     public class PersonApplicationService
     {
         private readonly PersonServiceModel _personServiceModel;
+        public PersonApplicationService()
+        {
+            _personServiceModel = new PersonServiceModel();
+        }
 
         #region [- GetAll() -]
         public List<GetPersonDto> GetAll()
@@ -23,7 +28,19 @@ namespace ApplicationService.Services
                 getPersonDtos.Add(getPersondto);
             }
             return getPersonDtos;
-        } 
+        }
+        #endregion
+
+        #region [- Post -]
+        public void Post(PostPersonDto postPersonDto)
+        {
+            var person = new Person()
+            {
+                FirstName = postPersonDto.FirstName,
+                LastName = postPersonDto.LastName,
+            };
+            _personServiceModel.Insert(person);
+        }
         #endregion
     }
 }
