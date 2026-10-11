@@ -1,6 +1,6 @@
 ﻿namespace View
 {
-    partial class Form1
+    partial class PersonForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             btnPost = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            btnPut = new Button();
+            btnDelete = new Button();
             btnRefresh = new Button();
-            button5 = new Button();
+            btnBack = new Button();
             lblFirstName = new Label();
             lblLastName = new Label();
             txtFirstName = new TextBox();
@@ -51,27 +51,29 @@
             btnPost.UseVisualStyleBackColor = true;
             btnPost.Click += btnPost_Click;
             // 
-            // button2
+            // btnPut
             // 
-            button2.Location = new Point(315, 35);
-            button2.Name = "button2";
-            button2.Size = new Size(124, 29);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            btnPut.Location = new Point(208, 35);
+            btnPut.Name = "btnPut";
+            btnPut.Size = new Size(157, 29);
+            btnPut.TabIndex = 1;
+            btnPut.Text = "Edit";
+            btnPut.UseVisualStyleBackColor = true;
+            btnPut.Click += btnPut_Click;
             // 
-            // button3
+            // btnDelete
             // 
-            button3.Location = new Point(468, 35);
-            button3.Name = "button3";
-            button3.Size = new Size(120, 29);
-            button3.TabIndex = 2;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            btnDelete.Location = new Point(397, 35);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(155, 29);
+            btnDelete.TabIndex = 2;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(633, 35);
+            btnRefresh.Location = new Point(582, 35);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(146, 29);
             btnRefresh.TabIndex = 3;
@@ -79,14 +81,15 @@
             btnRefresh.UseVisualStyleBackColor = true;
             btnRefresh.Click += btnRefresh_Click;
             // 
-            // button5
+            // btnBack
             // 
-            button5.Location = new Point(805, 35);
-            button5.Name = "button5";
-            button5.Size = new Size(94, 29);
-            button5.TabIndex = 4;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
+            btnBack.Location = new Point(805, 35);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(94, 29);
+            btnBack.TabIndex = 4;
+            btnBack.Text = "Back";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
             // 
             // lblFirstName
             // 
@@ -111,7 +114,7 @@
             txtFirstName.Location = new Point(111, 96);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new Size(668, 27);
-            txtFirstName.TabIndex = 7;
+            txtFirstName.TabIndex = 0;
             // 
             // txtLastName
             // 
@@ -128,8 +131,10 @@
             dgvPerson.RowHeadersWidth = 51;
             dgvPerson.Size = new Size(852, 269);
             dgvPerson.TabIndex = 9;
+            dgvPerson.CellDoubleClick += dgvPerson_CellDoubleClick;
+            dgvPerson.MouseClick += dgvPerson_MouseClick;
             // 
-            // Form1
+            // PersonForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -139,13 +144,15 @@
             Controls.Add(txtFirstName);
             Controls.Add(lblLastName);
             Controls.Add(lblFirstName);
-            Controls.Add(button5);
+            Controls.Add(btnBack);
             Controls.Add(btnRefresh);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(btnDelete);
+            Controls.Add(btnPut);
             Controls.Add(btnPost);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "PersonForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "PersonForm";
+            Load += PersonForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPerson).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -154,8 +161,8 @@
         #endregion
 
         private Button btnPost;
-        private Button button2;
-        private Button button3;
+        private Button btnPut;
+        private Button btnDelete;
         private Button btnRefresh;
         private Button button5;
         private Label lblFirstName;
@@ -163,5 +170,6 @@
         private TextBox txtFirstName;
         private TextBox txtLastName;
         private DataGridView dgvPerson;
+        private Button btnBack;
     }
 }

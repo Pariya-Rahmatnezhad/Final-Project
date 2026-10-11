@@ -1,4 +1,4 @@
-﻿using ApplicationService.Dtos;
+﻿using ApplicationService.Dtos.PersonDtos;
 using Model.DomainModel;
 using Model.ServiceModel;
 
@@ -31,7 +31,7 @@ namespace ApplicationService.Services
         }
         #endregion
 
-        #region [- Post -]
+        #region [- Post() -]
         public void Post(PostPersonDto postPersonDto)
         {
             var person = new Person()
@@ -40,6 +40,29 @@ namespace ApplicationService.Services
                 LastName = postPersonDto.LastName,
             };
             _personServiceModel.Insert(person);
+        }
+        #endregion
+
+        #region [- Put() -]
+        public void Put(PutPersonDto putPersonDto)
+        {
+            var person = new Person()
+            {   Id = putPersonDto.Id,
+                FirstName = putPersonDto.FirstName,
+                LastName = putPersonDto.LastName,
+            };
+            _personServiceModel.Update(person);
+        }
+        #endregion
+
+        #region [- Delete() -]
+        public void Delete(DeletePersonDto deletePersonDto)
+        {
+            var person = new Person()
+            {
+                Id = deletePersonDto.Id,
+            };
+            _personServiceModel.Delete(person);
         }
         #endregion
     }

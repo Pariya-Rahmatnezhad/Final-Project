@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ApplicationService.Dtos
+﻿namespace ApplicationService.Dtos.PersonDtos
 {
-    public class GetPersonDto
+    public class PutPersonDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
