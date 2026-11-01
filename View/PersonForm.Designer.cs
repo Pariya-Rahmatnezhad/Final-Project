@@ -38,6 +38,8 @@
             txtFirstName = new TextBox();
             txtLastName = new TextBox();
             dgvPerson = new DataGridView();
+            lblNId = new Label();
+            txtNId = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvPerson).BeginInit();
             SuspendLayout();
             // 
@@ -126,19 +128,38 @@
             // dgvPerson
             // 
             dgvPerson.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPerson.Location = new Point(47, 217);
+            dgvPerson.Location = new Point(47, 246);
             dgvPerson.Name = "dgvPerson";
             dgvPerson.RowHeadersWidth = 51;
-            dgvPerson.Size = new Size(852, 269);
+            dgvPerson.Size = new Size(852, 240);
             dgvPerson.TabIndex = 9;
             dgvPerson.CellDoubleClick += dgvPerson_CellDoubleClick;
             dgvPerson.MouseClick += dgvPerson_MouseClick;
+            // 
+            // lblNId
+            // 
+            lblNId.AutoSize = true;
+            lblNId.Location = new Point(17, 196);
+            lblNId.Name = "lblNId";
+            lblNId.Size = new Size(86, 20);
+            lblNId.TabIndex = 10;
+            lblNId.Text = "National Id:";
+            // 
+            // txtNId
+            // 
+            txtNId.Location = new Point(111, 196);
+            txtNId.Name = "txtNId";
+            txtNId.Size = new Size(668, 27);
+            txtNId.TabIndex = 11;
+            txtNId.KeyPress += txtNId_KeyPress;
             // 
             // PersonForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(926, 528);
+            Controls.Add(txtNId);
+            Controls.Add(lblNId);
             Controls.Add(dgvPerson);
             Controls.Add(txtLastName);
             Controls.Add(txtFirstName);
@@ -171,5 +192,7 @@
         private TextBox txtLastName;
         private DataGridView dgvPerson;
         private Button btnBack;
+        private Label lblNId;
+        private TextBox txtNId;
     }
 }

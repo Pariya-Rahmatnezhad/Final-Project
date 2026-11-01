@@ -1,7 +1,7 @@
 ﻿
 namespace View.Frameworks.Controllers
 {
-    public static class FormButtonController
+    public static class FormButtonHelper
     {
         public static void SetInitialState(Button btnPost, Button btnPut, Button btnDelete)
         {

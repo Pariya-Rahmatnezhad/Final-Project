@@ -22,5 +22,10 @@
             productForm.Show();
             this.Hide();
         }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            this.ActiveControl = null;
+        }
     }
 }

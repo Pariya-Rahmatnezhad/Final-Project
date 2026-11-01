@@ -4,27 +4,25 @@ namespace Model.ServiceModels
 {
     public class ProductServiceModel
     {
-        #region [- Delete() -]
-        public void Delete(Product product)
+        #region [- Insert() -]
+        public void Insert(Product product)
         {
             using (var context = new ProjectDBContext())
             {
                 try
                 {
-                    var deletedProduct = context.Product.Find(product.Id);
-                    if (deletedProduct != null)
-                    {
-                        context.Product.Remove(deletedProduct);
-                        context.SaveChanges();
-                    }
+                    context.Add(product);
+                    context.SaveChanges();
                 }
                 catch (Exception)
                 {
                     throw;
                 }
-                finally { }
+                finally
+                {
+                }
             }
-        } 
+        }
         #endregion
 
         #region [- Update() -]
@@ -48,29 +46,37 @@ namespace Model.ServiceModels
                 {
                     throw;
                 }
-                finally { }
+                finally 
+                {
+                }
             }
-        } 
+        }
         #endregion
 
-        #region [- Insert() -]
-        public void Insert(Product product)
+        #region [- Delete() -]
+        public void Delete(Product product)
         {
             using (var context = new ProjectDBContext())
             {
                 try
                 {
-                    context.Add(product);
-                    context.SaveChanges();
+                    var deletedProduct = context.Product.Find(product.Id);
+                    if (deletedProduct != null)
+                    {
+                        context.Product.Remove(deletedProduct);
+                        context.SaveChanges();
+                    }
                 }
                 catch (Exception)
                 {
                     throw;
                 }
-                finally { }
+                finally
+                {
+                }
             }
         } 
-         #endregion
+        #endregion
 
         #region [- SellectAll() -]
         public List<Product> SellectAll()
@@ -88,7 +94,6 @@ namespace Model.ServiceModels
                 }
                 finally
                 {
-
                 }
             }
         } 

@@ -7,33 +7,15 @@ namespace ApplicationService.Services
 {
     public class ProductApplicationService
     {
+        #region [- PrivateFields -]
         private readonly ProductServiceModel _productServiceModel;
+        #endregion
 
+        #region [- Ctor -]
         public ProductApplicationService()
         {
             _productServiceModel = new ProductServiceModel();
-        }
-
-        #region [- GetAll() -]
-        public List<GetProductDto> GetAll()
-        {
-            var products = _productServiceModel.SellectAll();
-            var GetProductDtos = new List<GetProductDto>();
-
-            foreach (var product in products)
-            {
-                var getProductDto = new GetProductDto()
-                {
-                    Id = product.Id,
-                    Code = product.Code,
-                    Title = product.Title,
-                    UnitPrice = product.UnitPrice,
-                    Quantity = product.Quantity,
-                };
-                GetProductDtos.Add(getProductDto);
-            }
-            return GetProductDtos;
-        }
+        } 
         #endregion
 
         #region [- Post() -]
@@ -74,7 +56,29 @@ namespace ApplicationService.Services
             };
 
             _productServiceModel.Delete(product);
-        } 
+        }
+        #endregion
+
+        #region [- GetAll() -]
+        public List<GetProductDto> GetAll()
+        {
+            var products = _productServiceModel.SellectAll();
+            var GetProductDtos = new List<GetProductDto>();
+
+            foreach (var product in products)
+            {
+                var getProductDto = new GetProductDto()
+                {
+                    Id = product.Id,
+                    Code = product.Code,
+                    Title = product.Title,
+                    UnitPrice = product.UnitPrice,
+                    Quantity = product.Quantity,
+                };
+                GetProductDtos.Add(getProductDto);
+            }
+            return GetProductDtos;
+        }
         #endregion
     }
 }

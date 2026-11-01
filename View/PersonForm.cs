@@ -12,13 +12,14 @@ namespace View
         public PersonForm(MainForm mainForm)
         {
             InitializeComponent();
+
             _personApplicationService = new PersonApplicationService();
             _mainForm = mainForm;
         }
 
         private void PersonForm_Load(object sender, EventArgs e)
         {
-            FormButtonController.SetInitialState(btnPost, btnPut, btnDelete);
+            FormButtonHelper.SetInitialState(btnPost, btnPut, btnDelete);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -28,18 +29,19 @@ namespace View
 
         private void btnPost_Click(object sender, EventArgs e)
         {
-            if (!PersonController.ValidatePersonInputs(txtFirstName, txtLastName)) return;
+            if (!PersonHelper.ValidatePersonInputs(txtFirstName, txtLastName, txtNId)) return;
 
             var postPersonDto = new PostPersonDto()
             {
                 FirstName = txtFirstName.Text.Trim(),
                 LastName = txtLastName.Text.Trim(),
+                NId = txtNId.Text.Trim(),
             };
             _personApplicationService.Post(postPersonDto);
 
             RefreshData();
 
-            MessageBox.Show($"The Person {postPersonDto.FirstName},{postPersonDto.LastName} is registered successfully!");
+            MessageBox.Show($"The Person {postPersonDto.FirstName},{postPersonDto.LastName}, {postPersonDto.NId} is registered successfully!");
 
             ResetForm();
         }
@@ -47,13 +49,14 @@ namespace View
         private void btnPut_Click(object sender, EventArgs e)
         {
 
-            if (!PersonController.ValidatePersonInputs(txtFirstName, txtLastName)) return;
+            if (!PersonHelper.ValidatePersonInputs(txtFirstName, txtLastName, txtNId)) return;
 
             var row = dgvPerson.SelectedRows[0];
             var currentFirstName = row.Cells["FirstName"].Value.ToString().Trim();
             var currentLastName = row.Cells["LastName"].Value.ToString().Trim();
+            var currentNId = row.Cells["NId"].Value.ToString().Trim();
 
-            if (!PersonController.HasChanges(currentFirstName, currentLastName, txtFirstName, txtLastName))
+            if (!PersonHelper.HasChanges(currentFirstName, currentLastName, currentNId, txtFirstName, txtLastName, txtNId))
             {
                 MessageBox.Show("Please change at least one field!");
                 return;
@@ -66,13 +69,14 @@ namespace View
                 Id = id,
                 FirstName = txtFirstName.Text.Trim(),
                 LastName = txtLastName.Text.Trim(),
+                NId = txtNId.Text.Trim(),
             };
 
             _personApplicationService.Put(putPersonDto);
 
             RefreshData();
 
-            MessageBox.Show($"The Person {putPersonDto.FirstName},{putPersonDto.LastName} is updated successfully!");
+            MessageBox.Show($"The Person {putPersonDto.FirstName},{putPersonDto.LastName}, {putPersonDto.NId} is updated successfully!");
 
             ResetForm();
         }
@@ -84,6 +88,8 @@ namespace View
             var id = Convert.ToInt32(row.Cells["id"].Value);
             var firstName = row.Cells["FirstName"].Value.ToString();
             var lastName = row.Cells["LastName"].Value.ToString();
+            var NId = row.Cells["NId"].Value.ToString();
+
 
             var deletePersonDto = new DeletePersonDto() { Id = id };
 
@@ -91,7 +97,7 @@ namespace View
 
             RefreshData();
 
-            MessageBox.Show($"The Person {firstName},{lastName} is deleted successfully!");
+            MessageBox.Show($"The Person {firstName},{lastName},{NId} is deleted successfully!");
 
             ResetForm();
         }
@@ -109,8 +115,9 @@ namespace View
                 var row = dgvPerson.Rows[e.RowIndex];
                 txtFirstName.Text = row.Cells["FirstName"].Value.ToString();
                 txtLastName.Text = row.Cells["LastName"].Value.ToString();
+                txtNId.Text = row.Cells["NId"].Value.ToString();
 
-                FormButtonController.EnableEditAndDelete(btnPost, btnPut, btnDelete);
+                FormButtonHelper.EnableEditAndDelete(btnPost, btnPut, btnDelete);
             }
         }
 
@@ -130,9 +137,10 @@ namespace View
         {
             txtFirstName.Text = string.Empty;
             txtLastName.Text = string.Empty;
+            txtNId.Text = string.Empty;
             txtFirstName.Focus();
 
-            FormButtonController.SetInitialState(btnPost, btnPut, btnDelete);
+            FormButtonHelper.SetInitialState(btnPost, btnPut, btnDelete);
         }
 
         private void RefreshData()
@@ -140,5 +148,13 @@ namespace View
             dgvPerson.DataSource = _personApplicationService.GetAll();
         }
         #endregion
+
+        private void txtNId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ')
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

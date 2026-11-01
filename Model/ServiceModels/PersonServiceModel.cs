@@ -1,9 +1,60 @@
 ﻿using Model.DomainModel;
 
+
 namespace Model.ServiceModel
 {
     public class PersonServiceModel
     {
+        #region [- Insert() -]
+        public void Insert(Person person)
+        {
+            using (var context = new ProjectDBContext())
+            {
+                try
+                {
+                    //context.Person.Add(person);
+                    context.Add(person);
+                    context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                }
+            }
+        }
+
+        #endregion
+
+        #region [- Update() -]
+        public void Update(Person person)
+        {
+            using (var context = new ProjectDBContext())
+            {
+                try
+                {
+                    var editedPerson = context.Person.Find(person.Id);
+                    if (editedPerson != null)
+                    {
+                        editedPerson.FirstName = person.FirstName;
+                        editedPerson.LastName = person.LastName;
+                        editedPerson.NationalId = person.NationalId;
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally 
+                {
+                }
+            }
+        }
+        #endregion
+
         #region [- Delete() -]
         public void Delete(Person person)
         {
@@ -19,59 +70,13 @@ namespace Model.ServiceModel
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
-                finally { }
+                finally 
+                {
+                }
             }
         }
-        #endregion
-
-        #region [- Update() -]
-        public void Update(Person person)
-        {
-            using (var context = new ProjectDBContext())
-            {
-                try
-                {
-                    var editedPerson = context.Person.Find(person.Id);
-                    if (editedPerson != null)
-                    {
-                        editedPerson.FirstName = person.FirstName;
-                        editedPerson.LastName = person.LastName;
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-                finally { }
-            }
-        }
-        #endregion
-
-        #region [- Insert() -]
-        public void Insert(Person person)
-        {
-            using (var context = new ProjectDBContext())
-            {
-                try
-                {
-                    //context.Person.Add(person);
-                    context.Add(person);
-                    context.SaveChanges();
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-                finally { }
-            }
-        }
-
         #endregion
 
         #region [- SelectAll() -]
@@ -86,10 +91,11 @@ namespace Model.ServiceModel
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
-                finally { }
+                finally 
+                {
+                }
             }
         } 
         #endregion

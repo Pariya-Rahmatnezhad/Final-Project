@@ -64,6 +64,7 @@
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
+            Shown += MainForm_Shown;
             ResumeLayout(false);
         }
 

@@ -19,7 +19,7 @@ namespace View
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
-            FormButtonController.SetInitialState(btnPost, btnPut, btnDelete);
+            FormButtonHelper.SetInitialState(btnPost, btnPut, btnDelete);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace View
 
         private void btnPost_Click(object sender, EventArgs e)
         {
-            if (!ProductController.ValidateProductInputs(txtProductCode, txtProductTitle, txtProductUnitPrice, nudProductQuantity)) return;
+            if (!ProductHelper.ValidateProductInputs(txtProductCode, txtProductTitle, txtProductUnitPrice, nudProductQuantity)) return;
 
             PostProductDto postProductDto = new PostProductDto()
             {
@@ -56,7 +56,7 @@ namespace View
 
         private void btnPut_Click(object sender, EventArgs e)
         {
-            if (!ProductController.ValidateProductInputs(txtProductCode, txtProductTitle, txtProductUnitPrice, nudProductQuantity)) return;
+            if (!ProductHelper.ValidateProductInputs(txtProductCode, txtProductTitle, txtProductUnitPrice, nudProductQuantity)) return;
 
             var row = dgvProduct.SelectedRows[0];
 
@@ -65,7 +65,7 @@ namespace View
             var currentUnitPrice = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
             var currentQuantity = Convert.ToInt32(row.Cells["Quantity"].Value);
 
-            if (!ProductController.HasChanges(currentCode, currentTitle, currentUnitPrice, currentQuantity, txtProductCode, txtProductTitle, txtProductUnitPrice, nudProductQuantity))
+            if (!ProductHelper.HasChanges(currentCode, currentTitle, currentUnitPrice, currentQuantity, txtProductCode, txtProductTitle, txtProductUnitPrice, nudProductQuantity))
                 {
                     MessageBox.Show("Please change at least one field!");
                     return;
@@ -142,7 +142,7 @@ namespace View
                 nudProductQuantity.Value = Convert.ToDecimal(row.Cells["Quantity"].Value);
             }
 
-            FormButtonController.EnableEditAndDelete(btnPost, btnPut, btnDelete);
+            FormButtonHelper.EnableEditAndDelete(btnPost, btnPut, btnDelete);
         }
 
         private void dgvProduct_MouseClick(object sender, MouseEventArgs e)
@@ -165,7 +165,7 @@ namespace View
 
             txtProductCode.Focus();
 
-            FormButtonController.SetInitialState(btnPost, btnPut, btnDelete);
+            FormButtonHelper.SetInitialState(btnPost, btnPut, btnDelete);
         }
 
         private void RefreshData()

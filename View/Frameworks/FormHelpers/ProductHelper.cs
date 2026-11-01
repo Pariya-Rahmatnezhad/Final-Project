@@ -1,11 +1,18 @@
 ﻿
+using System.Text.RegularExpressions;
+
 namespace View.Frameworks.Controllers
 {
-    public class ProductController
+    public class ProductHelper
     {
         public static bool IsEmpty(TextBox textBox)
         {
             return string.IsNullOrWhiteSpace(textBox.Text);
+        }
+
+        public static bool IsValidTitle(string title)
+        {
+            return Regex.IsMatch(title, @"^[a-zA-Z0-9 ]+$");
         }
 
         public static bool IsZero(NumericUpDown numericUpDown)
@@ -32,17 +39,24 @@ namespace View.Frameworks.Controllers
                 return false;
             }
 
-            if(!IsValidCode(txtProductCode))
+            if (!IsValidCode(txtProductCode))
             {
                 MessageBox.Show("Product code must be a positive integer!");
                 txtProductCode.Focus();
                 return false;
             }
-             
+
 
             if (IsEmpty(txtProductTitle))
             {
                 MessageBox.Show("Please enter the product title!");
+                txtProductTitle.Focus();
+                return false;
+            }
+
+            if (!IsValidTitle(txtProductTitle.Text))
+            {
+                MessageBox.Show("Product title must contain only English letters, numbers, and spaces!");
                 txtProductTitle.Focus();
                 return false;
             }
@@ -54,14 +68,14 @@ namespace View.Frameworks.Controllers
                 return false;
             }
 
-            if(!IsValidPrice(txtProductUnitPrice))
+            if (!IsValidPrice(txtProductUnitPrice))
             {
                 MessageBox.Show("Product unit price must be greater than zero!");
                 txtProductUnitPrice.Focus();
                 return false;
             }
 
-            if (IsZero(nudProductQuantity)) 
+            if (IsZero(nudProductQuantity))
             {
                 MessageBox.Show("Product quantity cannot be zero!");
                 nudProductQuantity.Focus();
@@ -70,6 +84,7 @@ namespace View.Frameworks.Controllers
 
             return true;
         }
+ 
 
         public static bool HasChanges(int currentCode, string currentTitle, decimal currentUnitPrice, int currentQuantity, TextBox txtProductCode, TextBox txtProductTitle, TextBox txtProductUnitPrice, NumericUpDown nudProductQuantity)
         {
